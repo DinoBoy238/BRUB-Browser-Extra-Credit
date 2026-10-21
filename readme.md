@@ -1,10 +1,10 @@
 Splitting up the work :)
 
 Lucas:
-- 
+- 1
 
 Ayden:
-- 
+- 1 
 
 Sam:
 - Boilerplate
