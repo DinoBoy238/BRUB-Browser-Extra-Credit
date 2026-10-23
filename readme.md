@@ -8,7 +8,7 @@ Ayden:
 
 Sam:
 - Boilerplate
-- 
+- homePage/Search bar
 
 Spencer:
 - I will do the back and foward buttons
