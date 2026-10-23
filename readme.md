@@ -14,8 +14,8 @@ Ayden:
 - 1 
 
 Sam:
-- Boilerplate
-- homePage/Search bar
+- Boilerplate 
+- homePage/Search bar (finished for now, might make it look pretty)
 
 Spencer:
 - I will do the back and foward buttons
