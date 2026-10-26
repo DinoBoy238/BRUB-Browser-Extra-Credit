@@ -7,6 +7,12 @@ import javafx.scene.web.WebView;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
 
+/**
+ * Team BRUB
+ *
+ * Sam Bacon, Spencer Brandon, Lucas Rabb, Ayden Unrath
+ */
+
 public class Browser extends Application {
 
 	@Override
