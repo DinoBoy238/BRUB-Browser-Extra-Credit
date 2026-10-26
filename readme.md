@@ -11,7 +11,7 @@ Lucas:
 - 1
 
 Ayden:
-- 1 
+- Status Bar
 
 Sam:
 - Boilerplate 
