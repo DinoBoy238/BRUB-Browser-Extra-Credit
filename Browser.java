@@ -15,15 +15,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
-<<<<<<< HEAD
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebHistory;
-=======
 import javafx.scene.layout.StackPane;
 import javafx.stage.Popup;
->>>>>>> origin
 
 /**
  * Team BRUB
