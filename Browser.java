@@ -15,6 +15,12 @@ import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
+/**
+ * Team BRUB
+ *
+ * Sam Bacon, Spencer Brandon, Lucas Rabb, Ayden Unrath
+ */
+
 public class Browser extends Application {
 
 	@Override
