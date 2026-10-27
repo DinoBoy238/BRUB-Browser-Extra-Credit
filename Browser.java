@@ -125,8 +125,10 @@ public class Browser extends Application {
 			if ( "dino".equals(input)) webEngine.load("https://wikispeedruns.com/play/quick_play?prompt_start=Computer&prompt_end=Dinosaur&lang=en");
 			
 			//finds if the input is a proper URL or not
-			else if ( input.startsWith("http://") || input.startsWith("https://")) webEngine.load(input);
-			
+			else if ( input.startsWith("http://") || input.startsWith("https://")){
+			       	webEngine.load(input);
+
+			}
 			// if not a proper URL does a google search instead
 			else { 
 				webEngine.load("https://google.com/search?q=" + input);
@@ -175,6 +177,7 @@ public class Browser extends Application {
 		
 		primaryStage.setScene( scene );
 		primaryStage.setMaximized(true);
+		primaryStage.titleProperty().bind(webEngine.titleProperty());
 		primaryStage.show( );
 
 
