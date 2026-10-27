@@ -12,6 +12,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.web.WebHistory;
 
 /**
  * Team BRUB
@@ -98,13 +102,26 @@ public class Browser extends Application {
 			
 		});
 
-	
+		//Backwards and the forwards buttons creation and logic
+		WebHistory history = webEngine.getHistory();
+
+		Button backButton = new Button("<--");
+		Button forwardButton = new Button("-->");
+
+		backButton.setOnAction(e -> history.go(-1));
+		forwardButton.setOnAction(e -> history.go(1));
+			
 		// Search bar drawing steps
 		HBox topBar =  new HBox(10);
-		topBar.getChildren().addAll(searchBar);
+		topBar.setPadding(new Insets(8, 12, 8, 12));
+		topBar.setAlignment(Pos.CENTER_LEFT);
+
+		topBar.getChildren().addAll(backButton, forwardButton, searchBar);
 		
 		HBox.setHgrow(searchBar, javafx.scene.layout.Priority.ALWAYS);
 		
+
+
 		//Status bar drawing
 		HBox bottomBar = new HBox(10);
 		bottomBar.getChildren().add(statusBar);
