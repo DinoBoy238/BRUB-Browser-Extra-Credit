@@ -7,15 +7,23 @@ import javafx.scene.web.WebView;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+<<<<<<< HEAD
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebHistory;
+=======
+import javafx.scene.layout.StackPane;
+import javafx.stage.Popup;
+>>>>>>> origin
 
 /**
  * Team BRUB
@@ -81,7 +89,34 @@ public class Browser extends Application {
 		// allows you to click off and onto the search bar
 		searchBar.setOnMouseClicked(event -> { searchBar.requestFocus(); });
 
+		//Help Button
+		Image image = new Image("questionmark.png");
+		Image helpImage = new Image("HelpText.png");
+		//popup graphics
+		ImageView popUpImage = new ImageView(helpImage);
+		popUpImage.setFitWidth(800);
+		popUpImage.setPreserveRatio(true);
+		StackPane popupstuff = new StackPane(popUpImage);
+		Popup popup = new Popup();
+		popup.setAutoHide(true);
+		popup.getContent().add(popupstuff);
 
+		//button graphics and behavior
+		ImageView imageView = new ImageView(image);
+		imageView.setFitWidth(35);
+		imageView.setFitHeight(35);
+		imageView.setPreserveRatio(true);
+		Button help = new Button("",imageView);
+		help.setOnAction(event -> {
+			if(!popup.isShowing()){
+			popup.show(primaryStage,help.getScene().getWindow().getX() + help.getLayoutX(),
+				help.getScene().getWindow().getY() + help.getLayoutY() + help.getHeight() + 30);
+			}
+			else{
+			popup.hide();
+			}	
+		});
+					
 
 		//search on hitting enter
 		searchBar.setOnAction( event -> { 
@@ -113,14 +148,12 @@ public class Browser extends Application {
 			
 		// Search bar drawing steps
 		HBox topBar =  new HBox(10);
+
 		topBar.setPadding(new Insets(8, 12, 8, 12));
 		topBar.setAlignment(Pos.CENTER_LEFT);
-
-		topBar.getChildren().addAll(backButton, forwardButton, searchBar);
-		
+		topBar.getChildren().addAll(backButton, forwardButton, searchBar, help);
 		HBox.setHgrow(searchBar, javafx.scene.layout.Priority.ALWAYS);
-		
-
+		HBox.setHgrow(help, javafx.scene.layout.Priority.NEVER);
 
 		//Status bar drawing
 		HBox bottomBar = new HBox(10);
@@ -131,7 +164,7 @@ public class Browser extends Application {
 		
 		// Top: currently only displays search bar
 		root.setTop(topBar);
-
+		
 		// Center: currently only displays web page
 		root.setCenter(webView);
 		
@@ -140,7 +173,6 @@ public class Browser extends Application {
 
 		// default view window size
 		Scene scene = new Scene( root);
-
 		// Tab name
 		primaryStage.setTitle("Awesome Web Browser");
 		
