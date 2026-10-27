@@ -1,3 +1,5 @@
+//Spencer Brandon, Lucas Raab, Aydan Unrath, Sam Bacon
+//Fix the window scale
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -6,6 +8,12 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.events.Event;
+import org.w3c.dom.events.EventListener;
+import org.w3c.dom.events.EventTarget;
 
 public class Browser extends Application {
 
@@ -18,9 +26,46 @@ public class Browser extends Application {
 
 		//default page
 		webEngine.load( "https://www.mtu.edu" );
-
 		
+		//Status Bar and hover on item
+		
+		Label statusBar = new Label("");
+		
+		webEngine.getLoadWorker().stateProperty().addListener((observable,oldValue,NewValue) -> {
+		Document doc = webEngine.getDocument();
+		EventTarget documentTarget = (EventTarget) doc;
+		//Hover Event steps
+		documentTarget.addEventListener("mouseover",new EventListener(){
+			@Override
+			public void handleEvent(Event event) {
+				org.w3c.dom.Node hoveredText = (org.w3c.dom.Node) event.getTarget();
+				
+				Element link = getTagAOrNull(hoveredText);
+				
+				if (link != null) {
+					String linkText = link.getAttribute("href");
+					statusBar.setText(linkText);
+				}
+			}
+		},false);
 
+		//Hover off item
+
+		documentTarget.addEventListener("mouseout",new EventListener(){
+			@Override
+			public void handleEvent(Event event) {
+				org.w3c.dom.Node unHoveredLink = (org.w3c.dom.Node) event.getTarget();
+				
+				Element offLink = getTagAOrNull(unHoveredLink);
+
+				if (offLink != null){
+					statusBar.setText("");
+				}			
+			}
+		}, false);
+		
+		});
+		
 		//create search bar
 		TextField searchBar = new TextField();
 		searchBar.setPromptText("Enter a URL");
@@ -56,8 +101,9 @@ public class Browser extends Application {
 		
 		HBox.setHgrow(searchBar, javafx.scene.layout.Priority.ALWAYS);
 		
-
-
+		//Status bar drawing
+		HBox bottomBar = new HBox(10);
+		bottomBar.getChildren().add(statusBar);
 
 		// display steps
 		BorderPane root = new BorderPane( );
@@ -67,18 +113,31 @@ public class Browser extends Application {
 
 		// Center: currently only displays web page
 		root.setCenter(webView);
-	
+		
+		//Bottom: Displays hovered link
+		root.setBottom(bottomBar);	
 
 		// default view window size
-		Scene scene = new Scene( root, 1920, 1440 );
+		Scene scene = new Scene( root);
 
 		// Tab name
 		primaryStage.setTitle("Awesome Web Browser");
 		
 		primaryStage.setScene( scene );
+		primaryStage.setMaximized(true);
 		primaryStage.show( );
 
 
 	}
 
+	private Element getTagAOrNull(org.w3c.dom.Node node){
+			while (node != null){
+				if (node instanceof Element && "a".equalsIgnoreCase(((Element) node).getTagName())){
+					return (Element) node;
+				}
+				node = node.getParentNode();
+			}
+		
+		return null;
+	}
 }
